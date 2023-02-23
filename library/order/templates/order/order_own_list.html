@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+{% block styles %}
+  {% load static %}
+  <link rel="stylesheet" href="{% static 'author/css/style.css' %}">
+{% endblock %}
+{% block title %}List of users{% endblock %}
+{% block content %}
+
+  {% if order_by_id %}
+
+  <table>
+    <caption><h2> Your Orders </h2></caption>
+    <thead>
+    <tr>
+      <th>Book name</th>
+      <th>User email</th>
+      <th>Until </th>
+      <th>Del </th>
+      <th>Modification </th>
+    </tr>
+    </thead>
+    <tbody>
+
+
+    {% for order in order_by_id %}
+      <tr>
+        <td>{{ order.book.name }}</td>
+        <td>{{ order.user.email }}</td>
+        <td>{{ order.plated_end_at }}</td>
+        <td><a href="{% url 'order:del_order' order.id %}">X</a> </td>
+        <td><a href="{% url 'order:upd_order' order.id %}">Upd</a> </td>
+      </tr>
+    {% endfor %}
+    </tbody>
+  </table>
+  <hr>
+{#  {% if request.user.role %}#}
+
+  {% else %}
+    <caption><h2 style="text-align: center"> Create new order </h2></caption>
+
+  {% endif %}
+  <div class="flexLinks">
+    <div><a href="{% url 'order:new_order' %}">New order</a></div>
+
+  </div>
+  {#  {% endif %}#}
+
+{% endblock %}

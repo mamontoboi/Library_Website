@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+{% block styles %}
+  {% load static %}
+  <link rel="stylesheet" href="{% static 'author/css/style.css' %}">
+{% endblock %}
+{% block title %}Order root operations{% endblock %}
+{% block content %}
+{% if message %}
+
+{% endif %}
+<form action="" method="post">
+  {% csrf_token %}
+  {{ form }}
+  <input type="submit" value="Del order">
+</form><br><br>
+
+
+  {% if orders %}
+    <table>
+      <caption><h2> Orders </h2></caption>
+      <thead>
+      <tr>
+        <th>ID</th>
+        <th>Book</th>
+        <th>Book id</th>
+        <th>Date</th>
+        <th>User id</th>
+        <th>User email</th>
+      </tr>
+      </thead>
+      <tbody>
+      {% for order in orders %}
+       <tr>
+          <td>{{ order.id }}</td>
+          <td>{{ order.book.name }}</td>
+          <td>{{ order.book.id }}</td>
+          <td>{{ order.created_at }}</td>
+          <td>{{ order.user.id }}</td>
+          <td>{{ order.user.email }}</td>
+       </tr>
+      {% endfor %}
+       </tbody>
+    </table>
+  {% endif %}
+  <hr>
+{% endblock %}

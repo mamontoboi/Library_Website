@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+{% block styles %}
+  {% load static %}
+  <link rel="stylesheet" href="{% static 'register/css/style.css' %}">
+{% endblock %}
+{% block title %}
+  Register info
+{% endblock %}
+{% block content %}
+
+  {% if messageSuccess %}
+    <div class="successAdded"> Successful register  </div>
+    <br>
+    <br>
+    <p class="linkLogin"><a href="{% url 'authentication:login' %}">You can log in now</a></p>
+  {% else %}
+    <div class="messageErr"> {{ form_err }}  </div>
+    <p class="linkRegister"><a href="{% url 'authentication:register' %}">Try again</a></p>
+{#    {% include 'authentication/register.html' %}#}
+  {% endif %}
+
+
+
+{% endblock %}

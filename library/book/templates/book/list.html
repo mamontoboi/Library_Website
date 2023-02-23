@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+{% block styles %}
+  {% load static %}
+  <link rel="stylesheet" href="{% static 'author/css/style.css' %}">
+{% endblock %}
+{% block title %}Books Page{% endblock %}
+{% block content %}
+
+  {% if not filtered %}
+    <div class="flex">
+    <form class="formSearch" action="" method="post">
+        <h3 style="display: inline">You can also find book title, count or description</h3>
+      {% csrf_token %}
+      <input class="searchBook" type="text" name="data" id="name" value="search">
+      <input type="submit" value="Submit">
+    </form>
+    </div>
+  {% endif %}
+    <hr>
+
+  <div class="flexCont">
+    {% for book in books %}
+      <div class="item">
+        <h2><a href="{{ book.id }}">{{ book.name }}</a></h2>
+
+{#        <h2>{{ book.author }}</h2>#}
+          {% if request.user.role %}
+              <div class="flexLinks bookItem">
+                <div><a href="{% url 'book:delete_book' pk=book.id %}">Delete book</a></div>
+                <div><a href="{% url 'book:update_book' book_id=book.id %}">Edit book</a></div>
+              </div>
+      {% endif %}
+      </div>
+
+    {% endfor %}
+  </div>
+    <hr>
+    {% if request.user.role %}
+        <div class="flexLinks">
+            <div><a href="{% url 'book:create_book' %}">Create book</a></div>
+        </div>
+    {% endif %}
+
+{% endblock %}

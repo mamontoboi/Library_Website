@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+{% block styles %}
+  {% load static %}
+  <link rel="stylesheet" href="{% static 'register/css/style.css' %}">
+{% endblock %}
+{% block title %}
+  Login
+{% endblock %}
+{% block content %}
+  <form class="registerForm" action="" method="post">
+    {% csrf_token %}
+
+    {{ form.as_p }}
+    {% if form.error_messages %}
+      {% for error_message in form.error_messages %}
+        <ul>
+          <li style="color: red; list-style: none; text-align: center">
+            {{ error_message }}
+          </li>
+        </ul>
+      {% endfor %}
+
+    {% endif %}
+    <input type="submit" value="Register">
+  </form>
+
+
+{% endblock %}

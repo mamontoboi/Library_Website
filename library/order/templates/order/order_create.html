@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+{% block styles %}
+  {% load static %}
+  <link rel="stylesheet" href="{% static 'author/css/style.css' %}">
+  <link rel="stylesheet" href="{% static 'order/css/style.css' %}">
+{% endblock %}
+{% block title %}Create new order{% endblock %}
+{% block content %}
+
+  {% if resolt %}
+    <div class="successAdded"> Successful added order {{ resolt }} </div>
+  {% endif %}
+  <form class="orderAddForm" action="" method="post">
+
+      {% csrf_token %}
+
+      {{ form.as_table }}<br><br>
+
+      <input type="submit" value="Submit">
+
+  </form>
+
+{#<a>{{resolt}}</a>#}
+{% endblock %}
+

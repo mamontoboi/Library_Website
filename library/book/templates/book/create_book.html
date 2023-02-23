@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+{% block styles %}
+{% load static %}
+  <link rel="stylesheet" type="text/css" href="{% static 'author/css/style.css' %}">
+{% endblock %}
+{% block title %}
+Create Book
+{% endblock %}
+
+
+{% block content %}
+  {% if request.user.role %}
+    <form method="POST" enctype="multipart/form-data">
+    {% csrf_token %}
+        {% for field in form %}
+        <div class="create_author">
+        <label>{{ field.label_tag }}</label><br>
+        {{ field }}
+        </div>
+        {% endfor %}
+        <input type="submit" value="Add Book" style="text-decoration: #080710; font-weight: bold;">
+    </form>
+  {% else %}
+    <h2 class="warning">Access Denied <hr> <span class="black">Only librarian can create books</span></h2>
+  {% endif %}
+{% endblock %}

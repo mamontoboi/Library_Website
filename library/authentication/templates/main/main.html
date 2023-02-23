@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+{% block styles %}
+  {#  {% load static %}#}
+{% endblock %}
+{% block title %}
+  Main page
+{% endblock %}
+
+
+{% block content %}
+  <h1>Welcome to main page on sprint 14</h1>
+  <p><div style="font-size: 22px">Here you can select a section</div></p>
+  <ul class="ulMain">
+    <li><a href="{% url 'book:books' %}">Watch available books</a></li>
+    {#  <a href="{% url order:order %}">Watch your orders</a>#}
+    {% if request.user.role %}
+      {#    <a href="{% url authentication:users %}">Watch users</a>#}
+      {#    <a href="{% url order:orders %}">Watch orders</a>#}
+      <li><a href="{% url 'author:show_authors' %}">Watch authors</a></li>
+      <li><a href="{% url 'author:create_author' %}">Create author</a></li>
+      <li><a href="{% url 'author:remove_author' %}">Remove author</a></li>
+
+    {% else %}
+    {% endif %}
+  </ul>
+{% endblock %}

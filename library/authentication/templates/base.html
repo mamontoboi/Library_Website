@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>{% block title %}{% endblock %}</title>
+  {% load static %}
+  <link rel="stylesheet" href="{% static 'global/css/styles.css' %}">
+  {% block styles %}
+
+  {% endblock %}
+</head>
+<body>
+<div class="header">
+  <div class="text-header">
+    <h1><a href="/">Welcome to Library</a><br></h1>
+  </div>
+
+  <nav>
+    <ul class="menu-list">
+      <li class="menu-list-item">
+        <a href="{% url 'author:show_authors' %}">Author</a>
+      </li>
+      <li class="menu-list-item">
+        <a href="{% url 'book:books' %}">Book</a>
+      </li>
+      {% if request.user.role %}
+
+      <li class="menu-list-item">
+        <a href="{% url 'authentication:users' %}">Users</a>
+      </li>
+      <li class="menu-list-item">
+        <a href="{% url 'order:orders' %}">Orders</a>
+      </li>
+      {% else %}
+        <li class="menu-list-item">
+          <a href="{% url 'order:order' %}">Orders</a>
+        </li>
+      {% endif %}
+
+
+
+      {% if request.user.is_authenticated %}
+        <li class="menu-list-item auth">
+          <a href="{% url 'authentication:logout' %}">Log Out</a>
+        </li>
+      {% else %}
+        <li class="menu-list-item auth">
+          <a href="{% url 'authentication:login' %}">Login</a>
+        </li>
+      {% endif %}
+      <li class="menu-list-item userListItem">
+        {{ request.user.email|default:'AnonymUser' }}
+        <div class="settingItems">
+          {% if request.user.is_authenticated %}
+          <div><a href="{% url 'authentication:change_password' request.user.id %}">Change password</a></div>
+          {% endif %}
+        </div>
+      </li>
+
+    </ul>
+  </nav>
+</div>
+
+<hr>
+<div class="mainContainer">
+
+  {% block content %}
+
+  {% endblock %}
+</div>
+
+{% if request.user.is_authenticated %}
+<script>
+  const userItem = document.querySelector('.userListItem')
+  const settingsList = document.querySelector('.settingItems')
+  userItem.addEventListener('click', function (el){
+      if (!el.target.classList.contains('userListItem')){return}
+      settingsList.classList.toggle('active')
+  })
+</script>
+{% endif %}
+
+
+
+
+</body>
+</html>

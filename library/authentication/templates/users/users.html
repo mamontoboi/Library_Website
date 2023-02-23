@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+{% block styles %}
+  {% load static %}
+  <link rel="stylesheet" href="{% static 'author/css/style.css' %}">
+{% endblock %}
+{% block title %}List of users{% endblock %}
+
+{% block content %}
+
+  <table>
+    <caption><h2> Users </h2></caption>
+    <thead>
+    <tr>
+      <th>User id</th>
+      <th>User email</th>
+      <th>User lastname</th>
+      <th>User rol</th>
+      <th>Del </th>
+      <th>Modification </th>
+    </tr>
+    </thead>
+    <tbody>
+
+
+    {% for user in list_of_user %}
+      <tr>
+        <td>{{ user.id }}</td>
+        <td><a href="{% url 'book:user_detail_book' user.id %}">{{ user.email }}</a></td>
+        <td>{{ user.last_name|default:'-' }}</td>
+        <td>{{ user.role }}</td>
+        <td><a class="delItem" data-user-email="{{ user.email }}" href="{% url 'authentication:del_user' user.id %}">X</a> </td>
+        <td><a href="{% url 'authentication:update_user' user.id %}">Upd</a> </td>
+      </tr>
+    {% endfor %}
+    </tbody>
+  </table>
+  <hr>
+  {% if request.user.role %}
+    <div class="flexLinks">
+      <div><a href="{% url 'authentication:specific_user' %}">View specific user</a></div>
+    </div>
+  {% endif %}
+<script>
+  const delUserLink = document.querySelectorAll('.delItem')
+  delUserLink.forEach(e => e.addEventListener('click', function (elem){
+      let dataPrompt = prompt('Are you sure to delete. Write email for confirm' + ' ' +  this.dataset.userEmail)
+      if (dataPrompt !== this.dataset.userEmail){
+          elem.preventDefault()
+      }
+  })
+  )
+</script>
+{% endblock %}

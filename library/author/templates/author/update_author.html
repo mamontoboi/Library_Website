@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+{% block styles %}
+  {% load static %}
+  <link rel="stylesheet" type="text/css" href="{% static 'author/css/style.css' %}">
+{% endblock %}
+{% block title %}Update author{% endblock %}
+{% block content %}
+  <form method="POST" enctype="multipart/form-data">
+    {% csrf_token %}
+    {% for field in form %}
+        <div class="create_author">
+        <label>{{ field.label_tag }}</label><br>
+        {{ field }}
+        </div>
+        {% endfor %}
+        <input type="submit" value="Update Author" style="text-decoration: #080710; font-weight: bold;">
+
+  </form>
+{% endblock %}
+

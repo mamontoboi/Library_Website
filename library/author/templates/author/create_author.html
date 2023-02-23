@@ -1,0 +1,57 @@
+{% extends 'base.html' %}
+{% block styles %}
+{% load static %}
+  <link rel="stylesheet" type="text/css" href="{% static 'author/css/style.css' %}">
+{% endblock %}
+{% block title %}
+Create author
+{% endblock %}
+
+
+{% block content %}
+  {% if request.user.role %}
+    {% if author %}
+      <div class="successAdded"> Successful added author {{ author.name }} </div>
+    {% endif %}
+    <form method="POST" enctype="multipart/form-data">
+    {% csrf_token %}
+    <div class="create_author">
+        <label for="{{ form.name.id_for_label }}">Author name</label><br>
+        {{ form.name }}
+    </div>
+    <div class="create_author">
+        <label for="{{ form.patronymic.id_for_label }}">Patronymic</label><br>
+        {{ form.patronymic }}
+    </div>
+        <div class="create_author">
+        <label for="{{ form.surname.id_for_label }}">Author surname</label><br>
+        {{ form.surname }}
+    </div>
+    <div class="create_author">
+        <label for="{{ form.books.id_for_label }}">Books</label><br>
+         <select name="books" id="books" multiple>
+            {% for book in form.books %}
+             <option value="{{ book.name }}">{{ book }}</option>
+            {% endfor %}
+         </select>
+    </div>
+    <input type="submit" value="Add Author" style="text-decoration: #080710; font-weight: bold;">
+    </form>
+<!--{#      <form action="" method="post">#}-->
+<!--{#      {% csrf_token %}#}-->
+<!--{#      <label for="name">Author name:</label><br>#}-->
+<!--{#      <input type="text" name="name" id="name" value="name" onfocus="this.value=''"><br>#}-->
+<!--{##}-->
+<!--{#      <label for="surname">Author surname:</label><br>#}-->
+<!--{#      <input type="text" name="surname" id="surname" value="surname" onfocus="this.value=''"><br>#}-->
+<!--{##}-->
+<!--{#      <label for="patronymic">Patronymic:</label><br>#}-->
+<!--{#      <input type="text" name="patronymic" id="patronymic" value="patronymic" onfocus="this.value=''"><br>#}-->
+<!--{##}-->
+<!--{#      <input type="submit" value="Add author">#}-->
+<!--{#    </form>#}-->
+  {% else %}
+    <h2 class="warning">Access Denied <hr> <span class="black">Only librarian manage create
+      authors</span></h2>
+  {% endif %}
+{% endblock %}

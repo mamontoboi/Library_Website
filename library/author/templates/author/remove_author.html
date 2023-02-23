@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+{% block styles %}
+  {% load static %}
+  <link rel="stylesheet" href="{% static 'author/css/style.css' %}">
+{% endblock %}
+{% block title %}
+  Remove author
+{% endblock %}
+
+
+{% block content %}
+  {% if request.user.role %}
+    {% if deleted_author %}
+      <div class="successAdded"> Successful deleted author {{ deleted_author.name }} </div>
+    {% endif %}
+    <form class="deleteAuthorForm" action="" method="post">
+      {% csrf_token %}
+      <label for="authors">Choose an author you want to delete:</label>
+
+      <select name="authors" id="authors-select">
+        <option value="False">--Please choose an option--</option>
+        {% for author in authors %}
+          <option value="{{ author.id }}">{{ author }}</option>
+        {% endfor %}
+
+      </select>
+      <input type="submit" value="Delete">
+    </form>
+  {% else %}
+    <h2 class="warning">Access Denied <hr> <span class="black">Only librarian manage create
+      authors</span></h2>
+  {% endif %}
+{% endblock %}

@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+{% block title %}Book detail{% endblock %}
+{% block content %}
+<div class="flexCont">
+  <div class="item">
+    <h2>{{ book.name }}</h2>
+    <p>id: {{ book.id }}</p>
+    <p>{{ book.description }}</p>
+    {% for author in authors %}
+        <p>{{ author }}</p>
+    {% endfor %}
+  <p>Count: <span>{{ book.count }}</span></p>
+      <div class="flexCont">
+        <div><a href="{% url 'book:delete_book' pk=book.id %}">Delete book</a></div>
+        <div><a href="{% url 'book:update_book' book_id=book.id %}">Edit book</a></div>
+      </div>
+  </div>
+</div>
+
+
+{% endblock %}

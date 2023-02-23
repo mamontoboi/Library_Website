@@ -1,0 +1,61 @@
+{% extends 'base.html' %}
+{% block styles %}
+  {% load static %}
+  <link rel="stylesheet" href="{% static 'author/css/style.css' %}">
+{% endblock %}
+{% block title %}List of users{% endblock %}
+{% block content %}
+  {% if list_of_order %}
+
+    <table>
+      <caption><h2> Orders </h2></caption>
+      <thead>
+      <tr>
+        <th>ID</th>
+        <th>Book</th>
+        <th>Date</th>
+        <th>User id</th>
+        <th>User email</th>
+        <th>Del </th>
+        <th>Modification </th>
+      </tr>
+      </thead>
+      <tbody>
+      {% for order in list_of_order %}
+       <tr>
+          <td>{{ order.id }}</td>
+          <td>{{ order.book.name }}</td>
+          <td>{{ order.created_at }}</td>
+         <td>{{ order.user.id }}</td>
+         <td>{{ order.user.email }}</td>
+          <td><a class="delItem" data-order-id="{{ order.id }}"href="{% url 'order:del_order' order.id %}">X</a> </td>
+          <td><a href="{% url 'order:upd_order' order.id %}">Upd</a> </td>
+        </tr>
+      {% endfor %}
+       </tbody>
+    </table>
+    <hr>
+  {% else %}
+    <caption><h2 style="text-align: center"> Create new order </h2></caption>
+
+  {% endif %}
+
+  <div class="flexLinks">
+    <div><a href="{% url 'order:new_order' %}">Create order</a></div>
+    {% if order_by_id and request.user.is_authenticated %}
+
+    <div><a href="{% url 'order:del_order' %}">Remove order</a></div>
+    {% endif %}
+  </div>
+
+  <script>
+      const delUserLink = document.querySelectorAll('.delItem')
+      delUserLink.forEach(e => e.addEventListener('click', function (elem){
+              let dataPrompt = prompt('Are you sure to delete. Write id order for confirm' + ' ' +  this.dataset.orderId)
+              if (dataPrompt !== this.dataset.orderId){
+                  elem.preventDefault()
+              }
+          })
+      )
+  </script>
+{% endblock %}
