@@ -21,12 +21,13 @@ body {
     padding: 0;
     border: 0;
     background: rgb(184 185 184 / 48%);
+    font-family: "Baskerville Old Face";
 
 }
 
 .header {
     background: #161d21;
-    height: 7vh;
+    height: 8vh;
     display: flex;
     justify-content: space-between;
     position: sticky;

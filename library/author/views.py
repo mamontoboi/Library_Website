@@ -12,7 +12,6 @@ class AuthorAPIView(viewsets.ModelViewSet):
     queryset = models.Author.objects.all()
 
 
-
 def create_author(request):
     if request.method == 'POST':
         data = request.POST
@@ -64,6 +63,12 @@ def success_author_creation(request):
                         "window.location = '/author/show_authors/';</script>")
 
 
+def success_author_deletion(request):
+    """Notification in case of successful deletion of the author."""
+    return HttpResponse("<script>alert ('The author was successfully deleted!'); "
+                        "window.location = '/author/show_authors/';</script>")
+
+
 def update_author(request, author_id=None):
     if author_id:
         try:
@@ -98,3 +103,9 @@ def update_author(request, author_id=None):
                 return render(request, 'author/update_author.html', {'form': form})
     else:
         return redirect('/author/show_authors/')
+
+
+def delete_author(request, author_id=None):
+    author = Author.objects.get(pk=author_id)
+    author.delete()
+    return redirect('author:success_del')

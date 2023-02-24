@@ -7,13 +7,15 @@
   Show all authors
 {% endblock %}
 {% block content %}
-  <table>
+  <table class="tables">
     <caption><h2> Authors </h2></caption>
     <thead>
     <tr>
       <th>Name</th>
       <th>Surname</th>
       <th>Books</th>
+      <th></th>
+      <th></th>
     </tr>
     </thead>
     <tbody>
@@ -26,7 +28,8 @@
         <td>{% for book in author.books.all %}
           <p>{{ book.name }}</p>
             {% endfor %}</td>
-      <td><a href="{% url 'author:update_author' author_id=author.id %}">Edit author</a></td>
+      <td><a href="{% url 'author:update_author' author_id=author.id %}">edit author</a></td>
+      <td><a href="{% url 'author:delete_author' author_id=author.id %}">delete author</a></td>
       </tr>
 
     {% endfor %}
@@ -36,7 +39,7 @@
   {% if request.user.role %}
   <div class="flexLinks">
     <div><a href="{% url 'author:create_author' %}">Create author</a></div>
-    <div><a href="{% url 'author:remove_author' %}">Remove author</a></div>
+<!--    <div><a href="{% url 'author:remove_author' %}">Remove author</a></div>-->
   </div>
   {% endif %}
 {% endblock %}

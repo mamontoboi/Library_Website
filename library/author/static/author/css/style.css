@@ -51,15 +51,16 @@ input[type="submit"]{
 }
 
 /*for show_authors*/
-table {
+.tables {
     border-collapse: collapse;
-    border: 2px solid rgb(200, 200, 200);
+    /*border: 2px solid rgb(200, 200, 200);*/
+    border: none;
     letter-spacing: 1px;
-    font-family: sans-serif;
     font-size: 1.2rem;
+    font-weight: 700;
     margin: 20px auto;
-    background: #575654;
-    width: 65%;
+    background: #797676;
+    width: 80%;
     min-width: 500px;
     text-align: center;
 

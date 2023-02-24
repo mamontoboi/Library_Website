@@ -7,16 +7,17 @@
 
 {% block content %}
 
-  <table>
+  <table class="tables">
     <caption><h2> Users </h2></caption>
     <thead>
     <tr>
-      <th>User id</th>
-      <th>User email</th>
-      <th>User lastname</th>
-      <th>User rol</th>
-      <th>Del </th>
-      <th>Modification </th>
+      <th>ID</th>
+      <th>email</th>
+      <th>name</th>
+      <th>lastname</th>
+      <th>role</th>
+      <th></th>
+      <th></th>
     </tr>
     </thead>
     <tbody>
@@ -26,10 +27,15 @@
       <tr>
         <td>{{ user.id }}</td>
         <td><a href="{% url 'book:user_detail_book' user.id %}">{{ user.email }}</a></td>
-        <td>{{ user.last_name|default:'-' }}</td>
-        <td>{{ user.role }}</td>
-        <td><a class="delItem" data-user-email="{{ user.email }}" href="{% url 'authentication:del_user' user.id %}">X</a> </td>
-        <td><a href="{% url 'authentication:update_user' user.id %}">Upd</a> </td>
+        <td>{{ user.name|default:' ' }}</td>
+        <td>{{ user.last_name|default:' ' }}</td>
+        {% if user.role %}
+        <td>librarian</td>
+        {% else %}
+        <td>visitor</td>
+        {% endif %}
+        <td><a href="{% url 'authentication:update_user' user.id %}">update</a> </td>
+        <td><a class="delItem" data-user-email="{{ user.email }}" href="{% url 'authentication:del_user' user.id %}">delete</a> </td>
       </tr>
     {% endfor %}
     </tbody>

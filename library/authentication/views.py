@@ -93,7 +93,8 @@ def logout_view(request):
 # @permission_required('role')
 def show_all_users(request):
     # if request.user.is_authenticated and request.user.role == 1:
-    data = list(CustomUser.get_all())
+    data = list(CustomUser.get_all().order_by('id'))
+    print(data)
     context = {'list_of_user': data}
     return render(request, 'users/users.html', context)
 
