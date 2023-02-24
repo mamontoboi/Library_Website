@@ -1,14 +1,12 @@
 {% extends 'base.html' %}
-{% block styles %}
-  {#  {% load static %}#}
-{% endblock %}
+
 {% block title %}
   Main page
 {% endblock %}
 
 
 {% block content %}
-  <h1>Welcome to main page on sprint 14</h1>
+  <h1>Welcome to main page of Library Website</h1>
   <p><div style="font-size: 22px">Here you can select a section</div></p>
   <ul class="ulMain">
     <li><a href="{% url 'book:books' %}">Watch available books</a></li>

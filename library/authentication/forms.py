@@ -33,11 +33,11 @@ class CustomUserModelFormRegister(forms.ModelForm):
         required=True,
         # help_text="Enter the same password as before, for verification.",
     )
+
     class Meta:
         model = CustomUser
         fields = ['email', 'first_name', 'middle_name', 'last_name', 'role']
         # field_classes = {"email": UsernameField}
-
 
         labels = {
             'email': 'Email!',
@@ -80,14 +80,13 @@ class UpdateUserModelForm(forms.ModelForm):
     password2 = forms.CharField(widget=forms.PasswordInput, max_length=30,
                                 label='Confirm password')
 
-
-
     class Meta:
         model = CustomUser
         exclude = ['last_login', 'user_permissions', 'groups']
         # labels = {
         #     'password2': 'Confirm password'
         # }
+
     def clean_email(self):
         email = self.cleaned_data.get('email')
 
@@ -105,7 +104,6 @@ class UpdateUserModelForm(forms.ModelForm):
         return confirm_password
 
     field_order = ['email', 'password', 'password2']
-
 
 
 class ChangePasswordModelForm(PasswordChangeForm):

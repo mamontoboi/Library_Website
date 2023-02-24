@@ -1,4 +1,3 @@
-# Create your views here.
 from django.forms import forms
 from django.shortcuts import render, get_object_or_404
 from django.contrib.auth import authenticate, login
@@ -11,15 +10,17 @@ from django.contrib.auth import logout
 from .forms import LoginForm, CustomUserModelFormRegister, \
     ChangePasswordModelForm
 from django.contrib.auth.decorators import permission_required
+from django.contrib.auth.decorators import login_required
 
-# from rest_framework.generics import RetrieveUpdateDestroyAPIView, ListAPIView
 from .serializers import UserSerializer
 from rest_framework import viewsets
 from authentication.models import CustomUser
 
+
 class UserAPIView(viewsets.ModelViewSet):
     serializer_class = UserSerializer
     queryset = CustomUser.objects.all()
+
 
 def login_view(request):
     if request.user.is_authenticated:
@@ -88,6 +89,7 @@ def logout_view(request):
     logout(request)
     return redirect('/')  # or return redirect('/some/url/')
 
+
 # @permission_required('role')
 def show_all_users(request):
     # if request.user.is_authenticated and request.user.role == 1:
@@ -148,7 +150,6 @@ def del_user(request, user_id):
     user.delete()
     return redirect(reverse_lazy('authentication:users'))
 
-from django.contrib.auth.decorators import login_required
 
 @login_required
 def change_password(request, user_id=None):
