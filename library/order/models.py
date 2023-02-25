@@ -31,22 +31,9 @@ class Order(models.Model):
         Magic method is redefined to show all information about Book.
         :return: book id, book name, book description, book count, book authors
         """
-        # if self.end_at == None:
-        #     return f"\'id\': {self.pk}, " \
-        #            f"\'user\': CustomUser(id={self.user.pk})," \
-        #            f" \'book\': Book(id={self.book.pk})," \
-        #            f" \'created_at\': \'{self.created_at}\'," \
-        #            f" \'end_at\': {self.end_at}," \
-        #            f" \'plated_end_at\': \'{self.plated_end_at}\'"
-        # else:
-        #     return f"\'id\': {self.pk}, " \
-        #            f"\'user\': CustomUser(id={self.user.pk})," \
-        #            f" \'book\': Book(id={self.book.pk})," \
-        #            f" \'created_at\': \'{self.created_at}\'," \
-        #            f" \'end_at\': \'{self.end_at}\'," \
-        #            f" \'plated_end_at\': \'{self.plated_end_at}\'"
         return f"id: {self.pk} user: {self.user.pk}" \
                f" book:{self.book.pk}"
+
     def __repr__(self):
         """
         This magic method is redefined to show class and id of Book object.
@@ -96,9 +83,9 @@ class Order(models.Model):
             return None
 
     def update(self, plated_end_at=None, end_at=None):
-        if plated_end_at != None:
+        if plated_end_at is not None:
             self.plated_end_at = plated_end_at
-        if end_at != None:
+        if end_at is not None:
             self.end_at = end_at
         self.save()
 

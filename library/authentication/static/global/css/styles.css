@@ -99,7 +99,7 @@ body {
     border-radius: 5px;
     height: 20px;
     font-family: "Baskerville Old Face";
-    color: rgb(184 185 184 / 48%);
+    color: #3d3d3f;
 }
 .formSearch{
     /*margin: 0 auto;*/
@@ -140,7 +140,7 @@ body {
 .orderAddForm input, select{
     border-radius: 5px;
     margin: 7px 0 18px 0;
-    height: 25px;
+    height: 30px;
     font-size: 1.1rem;
 }
 label{

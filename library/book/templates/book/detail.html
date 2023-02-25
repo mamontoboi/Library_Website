@@ -1,16 +1,20 @@
 {% extends 'base.html' %}
+{% block styles %}
+  {% load static %}
+  <link rel="stylesheet" href="{% static 'author/css/style.css' %}">
+{% endblock %}
 {% block title %}Book detail{% endblock %}
 {% block content %}
 <div class="flexCont">
   <div class="item">
-    <h2>{{ book.name }}</h2>
-    <p>id: {{ book.id }}</p>
-    <p>{{ book.description }}</p>
+    <h2>Title: {{ book.name }}</h2>
+    <p class="item_detail">id: {{ book.id }}</p>
+    <p class="item_detail">Description: {{ book.description }}</p>
     {% for author in authors %}
-        <p>{{ author }}</p>
+        <p class="item_detail">Author: {{ author }}</p>
     {% endfor %}
-  <p>Count: <span>{{ book.count }}</span></p>
-      <div class="flexCont">
+    <p class="item_detail">Number of books in stock: {{ book.count }}</p>
+      <div class="flexLinks bookItem">
         <div><a href="{% url 'book:delete_book' pk=book.id %}">Delete book</a></div>
         <div><a href="{% url 'book:update_book' book_id=book.id %}">Edit book</a></div>
       </div>

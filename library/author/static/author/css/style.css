@@ -24,6 +24,9 @@ input{
 }
 input[type="submit"]{
     width: -webkit-fill-available;
+    font-family: Baskerville Old Face;
+    font-size: 24px;
+    font-weight: 600;
 
 }
 .warning{
@@ -140,4 +143,11 @@ th {
     font-size: 1.5rem;
     font-weight: bold;
 
+}
+
+/* for all buttons */
+.subButton {
+    font-family: Baskerville Old Face;
+    font-size: 24px;
+    font-weight: 600;
 }

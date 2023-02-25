@@ -15,26 +15,32 @@ Create author
     {% endif %}
     <form method="POST" enctype="multipart/form-data">
     {% csrf_token %}
-    <div class="create_author">
-        <label for="{{ form.name.id_for_label }}">Author name</label><br>
-        {{ form.name }}
-    </div>
-    <div class="create_author">
-        <label for="{{ form.patronymic.id_for_label }}">Patronymic</label><br>
-        {{ form.patronymic }}
-    </div>
+        {% for field in form %}
         <div class="create_author">
-        <label for="{{ form.surname.id_for_label }}">Author surname</label><br>
-        {{ form.surname }}
-    </div>
-    <div class="create_author">
-        <label for="{{ form.books.id_for_label }}">Books</label><br>
-         <select name="books" id="books" multiple>
-            {% for book in form.books %}
-             <option value="{{ book.name }}">{{ book }}</option>
-            {% endfor %}
-         </select>
-    </div>
+        <label>{{ field.label_tag }}</label><br>
+        {{ field }}
+        </div>
+        {% endfor %}
+<!--    <div class="create_author">-->
+<!--        <label for="{{ form.name.id_for_label }}">Author name</label><br>-->
+<!--        {{ form.name }}-->
+<!--    </div>-->
+<!--    <div class="create_author">-->
+<!--        <label for="{{ form.patronymic.id_for_label }}">Patronymic</label><br>-->
+<!--        {{ form.patronymic }}-->
+<!--    </div>-->
+<!--        <div class="create_author">-->
+<!--        <label for="{{ form.surname.id_for_label }}">Author surname</label><br>-->
+<!--        {{ form.surname }}-->
+<!--    </div>-->
+<!--    <div class="create_author">-->
+<!--        <label for="{{ form.books.id_for_label }}">Books</label><br>-->
+<!--         <select name="books" id="books" multiple>-->
+<!--            {% for book in form.books %}-->
+<!--             <option value="{{ book.name }}">{{ book }}</option>-->
+<!--            {% endfor %}-->
+<!--         </select>-->
+<!--    </div>-->
     <input type="submit" value="Add Author" style="font-family: Baskerville Old Face;
                                                     text-decoration: #080710; font-weight: bold;">
     </form>

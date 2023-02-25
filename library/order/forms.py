@@ -6,7 +6,6 @@ class DateInput(forms.DateInput):
     input_type = 'date'
 
 
-
 class OrderModelFormForAdmin(forms.ModelForm):
     class Meta:
         model = Order
@@ -14,17 +13,18 @@ class OrderModelFormForAdmin(forms.ModelForm):
         labels = {
             'user': 'Select user',
             'book': 'Select book',
-            'end_at': 'Date to end subscribe',
+            'end_at': 'End of subscription date',
         }
         widgets = {
             'end_at' : DateInput
         }
+
+
 class OrderModelFormForUser(forms.ModelForm):
     class Meta:
         model = Order
         fields = ['book', 'end_at']
         labels = {
-            # 'user': 'Select user',
             'book': 'Select book',
             'end_at': 'Date to end subscribe',
         }
@@ -39,7 +39,6 @@ class DeleteOrderUser(forms.Form):
 
 
 class DeleteOrderAdmin(forms.Form):
-
     orders = forms.ModelChoiceField(Order.objects.all(),
                                        required=True,
                                        label="Choose order:")
