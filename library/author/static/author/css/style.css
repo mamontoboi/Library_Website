@@ -133,3 +133,11 @@ th {
     position: relative;
     flex-direction: column-reverse;
 }
+
+.item_detail {
+    margin: 10px 0 20px;
+    font-family: "Baskerville Old Face";
+    font-size: 1.5rem;
+    font-weight: bold;
+
+}

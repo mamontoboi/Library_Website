@@ -7,7 +7,7 @@
 {% block content %}
   {% if list_of_order %}
 
-    <table>
+    <table class="tables">
       <caption><h2> Orders </h2></caption>
       <thead>
       <tr>
@@ -16,8 +16,8 @@
         <th>Date</th>
         <th>User id</th>
         <th>User email</th>
-        <th>Del </th>
-        <th>Modification </th>
+        <th></th>
+        <th></th>
       </tr>
       </thead>
       <tbody>
@@ -28,9 +28,9 @@
           <td>{{ order.created_at }}</td>
          <td>{{ order.user.id }}</td>
          <td>{{ order.user.email }}</td>
-          <td><a class="delItem" data-order-id="{{ order.id }}"href="{% url 'order:del_order' order.id %}">X</a> </td>
-          <td><a href="{% url 'order:upd_order' order.id %}">Upd</a> </td>
-        </tr>
+         <td><a href="{% url 'order:upd_order' order.id %}">update</a> </td>
+         <td><a class="delItem" data-order-id="{{ order.id }}"href="{% url 'order:del_order' order.id %}">delete</a> </td>
+       </tr>
       {% endfor %}
        </tbody>
     </table>

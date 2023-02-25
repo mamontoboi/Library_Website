@@ -98,6 +98,8 @@ body {
 .searchBook{
     border-radius: 5px;
     height: 20px;
+    font-family: "Baskerville Old Face";
+    color: rgb(184 185 184 / 48%);
 }
 .formSearch{
     /*margin: 0 auto;*/

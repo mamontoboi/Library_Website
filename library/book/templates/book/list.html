@@ -9,10 +9,10 @@
   {% if not filtered %}
     <div class="flex">
     <form class="formSearch" action="" method="post">
-        <h3 style="display: inline">You can also find book title, count or description</h3>
+        <h3 style="display: inline">You can also find the book by title, count or description</h3>
       {% csrf_token %}
-      <input class="searchBook" type="text" name="data" id="name" value="search">
-      <input type="submit" value="Submit">
+      <input class="searchBook" type="text" name="data" id="name" placeholder="search">
+      <input type="submit" value="Submit" style="font-family: Baskerville Old Face; font-size: 24px; font-weight: 600">
     </form>
     </div>
   {% endif %}
@@ -22,8 +22,10 @@
     {% for book in books %}
       <div class="item">
         <h2><a href="{{ book.id }}">{{ book.name }}</a></h2>
-
-{#        <h2>{{ book.author }}</h2>#}
+        {% for author in book.authors.all %}
+        <p class="item_detail">{{ author }}</p>
+        {% endfor %}
+<!--        <h2>{{ book.authors }}</h2>-->
           {% if request.user.role %}
               <div class="flexLinks bookItem">
                 <div><a href="{% url 'book:delete_book' pk=book.id %}">Delete book</a></div>
