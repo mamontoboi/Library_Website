@@ -4,4 +4,4 @@ It still serves as a playground for implementing additional functionality and de
 
 ![Example of functionality](https://media.giphy.com/media/v4SoSXVXpGZ7CV2fXv/giphy.gif)
 
-![Example of functionality](https://media.giphy.com/media/1D5MgJWyRu8YIiVkMc/giphy.gif)
+![Example of functionality](https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExNmM3OGQ1YTZlYmNhZWNiN2IxY2E1MjJmNWI0YTcyOTI1YWQxOWY2MCZjdD1n/1D5MgJWyRu8YIiVkMc/giphy.mp4)
