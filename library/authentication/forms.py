@@ -36,7 +36,7 @@ class CustomUserModelFormRegister(forms.ModelForm):
 
     class Meta:
         model = CustomUser
-        fields = ['email', 'first_name', 'middle_name', 'last_name', 'role']
+        fields = ['email', 'first_name', 'last_name', 'role']
         # field_classes = {"email": UsernameField}
 
         labels = {

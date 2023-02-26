@@ -35,9 +35,10 @@ def login_view(request):
             if user is not None:
                 if user.is_active:
                     login(request, user)
-                    return render(request, 'authentication/login_info.html',
-                                  {'messageSuccess': 'Authenticate successfully'})
-                    # return HttpResponse('Authenticate successfully')
+                    return redirect('/')
+                    # return render(request, 'authentication/login_info.html',
+                    #               {'messageSuccess': 'Authenticate successfully'})
+
                 else:
                     return render(request, 'authentication/login_info.html',
                                   {'message_err': 'Disabled account'})
@@ -63,7 +64,7 @@ def register_view(request):
                                          password=cd['password1'],
                                          first_name=cd['first_name'],
                                          role=cd['role'],
-                                         middle_name=cd['middle_name'],
+                                         # middle_name=cd['middle_name'],
                                          last_name=cd['last_name'])
                 if not user:
                     return render(request, 'authentication/register.html',
@@ -129,7 +130,7 @@ def update_user(request, user_id):
         'first_name': user.first_name,
         'id': user.id,
         'last_name': user.last_name,
-        'middle_name': user.middle_name,
+        # 'middle_name': user.middle_name,
         'role': user.role,
         'is_active': user.is_active,
         'is_staff': user.is_staff,

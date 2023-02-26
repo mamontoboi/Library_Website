@@ -60,13 +60,16 @@ form{
     border: 2px solid rgba(255,255,255,0.1);
     box-shadow: 0 0 40px rgba(8,7,16,0.6);
     padding: 50px 35px;
+
 }
 form *{
-    font-family: 'Poppins',sans-serif;
+    font-family: "Baskerville Old Face";
+    font-size: 20px;
     color: #ffffff;
     letter-spacing: 0.5px;
     outline: none;
     border: none;
+
 }
 form h3{
     font-size: 32px;
@@ -101,9 +104,14 @@ input, select{
 ::placeholder{
     color: #e5e5e5;
 }
-.register{
+.register button{
     margin: 0 auto;
-    width: 100% !important;
+    width: 97% !important;
+    font-size: 20px;
+    font-weight: 600;
+    background-color: #ffffff;
+    /*margin: 0 auto;*/
+    /*width: 100% !important;*/
 }
 button{
     margin-top: 50px;

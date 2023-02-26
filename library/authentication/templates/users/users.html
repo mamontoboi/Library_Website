@@ -27,7 +27,7 @@
       <tr>
         <td>{{ user.id }}</td>
         <td><a href="{% url 'book:user_detail_book' user.id %}">{{ user.email }}</a></td>
-        <td>{{ user.name|default:' ' }}</td>
+        <td>{{ user.first_name|default:' ' }}</td>
         <td>{{ user.last_name|default:' ' }}</td>
         {% if user.role %}
         <td>librarian</td>

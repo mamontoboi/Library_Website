@@ -167,6 +167,7 @@ label{
 .registerForm > input{
     margin: 0;
     height: 30px;
+    background: darkgray;
 }
 .linkLogin > a{
     color: #1845ad;

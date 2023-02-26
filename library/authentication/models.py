@@ -67,8 +67,8 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
                                   blank=True)
     last_name = models.CharField(max_length=20, default=None, null=True,
                                  blank=True)
-    middle_name = models.CharField(max_length=20, default=None, null=True,
-                                   blank=True)
+    # middle_name = models.CharField(max_length=20, default=None, null=True,
+    #                                blank=True)
     email = models.CharField(max_length=100, unique=True, default=None,
                              null=True, blank=True)
     password = models.CharField(default=None, max_length=255, null=True,
@@ -154,14 +154,14 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
         :type password: str
         :return: a new user object which is also written into the DB
         """
-        if len(first_name) <= 20 and len(middle_name) <= 20 and len(
+        if len(first_name) <= 20 and len(
                 last_name) <= 20 and len(email) <= 100 and len(
             email.split('@')) == 2 and len(
             CustomUser.objects.filter(email=email)) == 0:
             # custom_user = CustomUser(email=email, password=password,
             custom_user = CustomUser(email=email,
                                      first_name=first_name,
-                                     middle_name=middle_name,
+                                     # middle_name=middle_name,
                                      last_name=last_name,
                                      role=role)
             custom_user.set_password(password)
@@ -191,7 +191,7 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
         """
         return {'id': self.id,
                 'first_name': f'{self.first_name}',
-                'middle_name': f'{self.middle_name}',
+                # 'middle_name': f'{self.middle_name}',
                 'last_name': f'{self.last_name}',
                 'email': f'{self.email}',
                 'created_at': int(self.created_at.timestamp()),
@@ -202,7 +202,7 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
     def update(self,
                first_name=None,
                last_name=None,
-               middle_name=None,
+               # middle_name=None,
                password=None,
                role=None,
                is_active=None):
@@ -227,8 +227,8 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
             user_to_update.first_name = first_name
         if last_name != None and len(last_name) <= 20:
             user_to_update.last_name = last_name
-        if middle_name != None and len(middle_name) <= 20:
-            user_to_update.middle_name = middle_name
+        # if middle_name != None and len(middle_name) <= 20:
+        #     user_to_update.middle_name = middle_name
         if password != None:
             user_to_update.password = password
         if role != None:
