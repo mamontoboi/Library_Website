@@ -72,6 +72,8 @@ td,
 th {
     border: 1px solid rgb(190, 190, 190);
     padding: 5px 10px;
+    color: #FCFBFB;
+    text-align: left;
 }
 
 #authors-select{
@@ -150,4 +152,12 @@ th {
     font-family: Baskerville Old Face;
     font-size: 24px;
     font-weight: 600;
+}
+
+.material-symbols-outlined {
+  font-variation-settings:
+  'FILL' 0,
+  'wght' 500,
+  'GRAD' -25,
+  'opsz' 24
 }
