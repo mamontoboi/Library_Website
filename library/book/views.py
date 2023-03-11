@@ -87,7 +87,7 @@ def delete_book(request, pk):
 
 def success_book_creation(request, name):
     """Notification in case of successful creation of a new book."""
-    return HttpResponse(f"<script>alert ('Congratulations! The book {name} was successfully created!'); "
+    return HttpResponse(f"<script>alert (\"Congratulations! The book {name} was successfully created!\"); "
                         "window.location = '/book/';</script>")
 
 
