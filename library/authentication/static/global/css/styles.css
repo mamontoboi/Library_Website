@@ -20,7 +20,8 @@ body {
     margin: 0;
     padding: 0;
     border: 0;
-    background: rgb(184 185 184 / 48%);
+    /*background: rgb(184 185 184 / 48%);*/
+    background-image: url('background.png');
     font-family: "Baskerville Old Face";
 
 }
