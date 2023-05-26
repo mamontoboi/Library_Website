@@ -1,0 +1,524 @@
+{
+	"info": {
+		"_postman_id": "9a15a702-b971-470e-bdbc-151686bef889",
+		"name": "DRF API",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
+		"_exporter_id": "25328579"
+	},
+	"item": [
+		{
+			"name": "Get Books List",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Get Book List\", function () {\r",
+							"    pm.expect(pm.response.code).to.eql(200);\r",
+							"});\r",
+							"\r",
+							"var books = pm.response.json();\r",
+							"var bookID = books.results[0].id;\r",
+							"pm.environment.set(\"bookID\", bookID);\r",
+							"postman.setNextRequest(\"Get Specific Book\")"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": "{{url}}book/"
+			},
+			"response": []
+		},
+		{
+			"name": "Get Specific Book",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Book id\", function () {\r",
+							"    var bookID = pm.environment.get(\"bookID\");\r",
+							"    var id = pm.response.json().id;\r",
+							"    pm.expect(id).to.eql(bookID);\r",
+							"});\r",
+							"postman.setNextRequest(\"Get Orders List\")"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": "{{url}}book/{{bookID}}"
+			},
+			"response": []
+		},
+		{
+			"name": "Get Orders List",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Get Order List\", function () {\r",
+							"    pm.expect(pm.response.code).to.eql(200);\r",
+							"});\r",
+							"\r",
+							"var orders = pm.response.json();\r",
+							"var orderID = orders.results[0].id;\r",
+							"var userorderID = orders.results[0].user;\r",
+							"pm.environment.set(\"orderID\", orderID);\r",
+							"pm.environment.set(\"userorderID\", userorderID);\r",
+							"postman.setNextRequest(\"Get Specific Order\")"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": "{{url}}order/"
+			},
+			"response": []
+		},
+		{
+			"name": "Get Specific Order",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Order id\", function () {\r",
+							"    var orderID = pm.environment.get(\"orderID\");\r",
+							"    var id = pm.response.json().id;\r",
+							"    pm.expect(id).to.eql(orderID);\r",
+							"});\r",
+							"postman.setNextRequest(\"Get Specific User Orders\")"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": "{{url}}order/{{orderID}}/"
+			},
+			"response": []
+		},
+		{
+			"name": "Get Specific User Orders",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"User Orders id\", function () {\r",
+							"    var userorderID = pm.environment.get(\"userorderID\");\r",
+							"    var user = pm.response.json()[0].user;\r",
+							"    pm.expect(user).to.eql(userorderID);\r",
+							"});\r",
+							"postman.setNextRequest(\"Get Specific User's Order\")"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": "{{url}}user/{{userorderID}}/order/"
+			},
+			"response": []
+		},
+		{
+			"name": "Get Specific User's Order",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Specific Order of Specific User\", function () {\r",
+							"    var userorderID = pm.environment.get(\"userorderID\");\r",
+							"    var orderID = pm.environment.get(\"orderID\");\r",
+							"    user = pm.response.json().order.user;\r",
+							"    order = pm.response.json().order.id;\r",
+							"    pm.expect(user).to.eql(userorderID);\r",
+							"    pm.expect(order).to.eql(orderID);\r",
+							"});\r",
+							"postman.setNextRequest(\"Update Book\")"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": "{{url}}user/{{userorderID}}/order/{{orderID}}/"
+			},
+			"response": []
+		},
+		{
+			"name": "Update Book",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Book patch\", function () {\r",
+							"    var count = pm.response.json().count;\r",
+							"    pm.expect(count).to.eql(25);\r",
+							"});\r",
+							"postman.setNextRequest(\"Undo Update Book\")"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PATCH",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"count\": 25\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "{{url}}book/{{bookID}}/"
+			},
+			"response": []
+		},
+		{
+			"name": "Undo Update Book",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Undo Book patch\", function () {\r",
+							"    var bookID = pm.environment.get(\"bookID\");\r",
+							"    var count = pm.response.json().count;\r",
+							"    pm.expect(count).to.eql(10);\r",
+							"});\r",
+							"postman.setNextRequest(\"Create Book\")"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PATCH",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"count\": 10\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "{{url}}book/{{bookID}}/"
+			},
+			"response": []
+		},
+		{
+			"name": "Create Book",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var new_book = pm.response.json();\r",
+							"var new_book_name = new_book.name;\r",
+							"var new_book_id = new_book.id;\r",
+							"pm.environment.set(\"new_book_id\", new_book_id);\r",
+							"\r",
+							"pm.test(\"Create Book\", function () {\r",
+							"    pm.expect(new_book_name).to.eql(\"Animal Farm\");\r",
+							"    pm.expect(pm.response.code).to.eql(201);\r",
+							"});\r",
+							"postman.setNextRequest(\"Delete Book\")"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"Animal Farm\",\r\n    \"description\": \"It tells the story of a group of farm animals who rebel against their human farmer, hoping to create a society where the animals can be equal, free, and happy.\",\r\n    \"count\": 15,\r\n    \"publication_year\": \"1945-08-17\",\r\n    \"date_of_issue\": null\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "{{url}}book/create/"
+			},
+			"response": []
+		},
+		{
+			"name": "Delete Book",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Delete Book\", function () {\r",
+							"    pm.expect(pm.response.code).to.eql(204);\r",
+							"});\r",
+							"postman.setNextRequest(\"Create Book for Update Test\")"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": "{{url}}book/{{new_book_id}}/"
+			},
+			"response": []
+		},
+		{
+			"name": "Create Book for Update Test",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var new_book = pm.response.json();\r",
+							"var new_book_name = new_book.name;\r",
+							"var new_book_id = new_book.id;\r",
+							"pm.environment.set(\"new_book_id\", new_book_id);\r",
+							"\r",
+							"pm.test(\"Create Book for Update Test\", function () {\r",
+							"    pm.expect(new_book_name).to.eql(\"Animal Farm\");\r",
+							"    pm.expect(pm.response.code).to.eql(201);\r",
+							"});\r",
+							"postman.setNextRequest(\"Create Order for Update Test\")"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"Animal Farm\",\r\n    \"description\": \"It tells the story of a group of farm animals who rebel against their human farmer, hoping to create a society where the animals can be equal, free, and happy.\",\r\n    \"count\": 15,\r\n    \"publication_year\": \"1945-08-17\",\r\n    \"date_of_issue\": null\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "{{url}}book/create/"
+			},
+			"response": []
+		},
+		{
+			"name": "Create Order for Update Test",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var new_order = pm.response.json();\r",
+							"var new_order_id = new_order.id;\r",
+							"pm.environment.set(\"new_order_id\", new_order_id);\r",
+							"\r",
+							"pm.test(\"Create Order\", function () {\r",
+							"    pm.expect(pm.response.code).to.eql(201);\r",
+							"});\r",
+							"postman.setNextRequest(\"Update Order\")"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"created_at\": \"2023-02-16T15:44:31.675404Z\",\r\n    \"end_at\": null,\r\n    \"plated_end_at\": \"2023-02-17T00:00:00Z\",\r\n    \"book\": {{bookID}},\r\n    \"user\": 1\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "{{url}}order/create/"
+			},
+			"response": []
+		},
+		{
+			"name": "Update Order",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Order patch\", function () {\r",
+							"    var new_order_id = pm.environment.get(\"new_order_id\");\r",
+							"    var new_book_id = pm.environment.get(\"new_book_id\");\r",
+							"    var book = pm.response.json().book;\r",
+							"    pm.expect(book).to.eql(new_book_id);\r",
+							"});\r",
+							"postman.setNextRequest(\"Delete Order\")"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PATCH",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"book\": {{new_book_id}}\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "{{url}}order/{{new_order_id}}/"
+			},
+			"response": []
+		},
+		{
+			"name": "Delete Order",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Delete Order\", function () {\r",
+							"    pm.expect(pm.response.code).to.eql(204);\r",
+							"});\r",
+							"postman.setNextRequest(\"Delete Book after Update Order Test\")"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": "{{url}}order/{{new_order_id}}/"
+			},
+			"response": []
+		},
+		{
+			"name": "Delete Book after Update Order Test",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Delete Book\", function () {\r",
+							"    pm.expect(pm.response.code).to.eql(204);\r",
+							"});\r",
+							"postman.setNextRequest(\"Get Author List\")"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": "{{url}}book/{{new_book_id}}/"
+			},
+			"response": []
+		},
+		{
+			"name": "Get Author List",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Get Author List\", function () {\r",
+							"    pm.expect(pm.response.code).to.eql(200);\r",
+							"});\r",
+							"postman.setNextRequest(\"Get User List\")"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": "{{url}}author/"
+			},
+			"response": []
+		},
+		{
+			"name": "Get User List",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Get User List\", function () {\r",
+							"    pm.expect(pm.response.code).to.eql(200);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": "{{url}}author/"
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "url",
+			"value": "",
+			"type": "string"
+		}
+	]
+}
